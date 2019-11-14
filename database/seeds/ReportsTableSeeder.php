@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Report;
+use App\WorkItem;
 
 
 class ReportsTableSeeder extends Seeder
@@ -13,6 +14,8 @@ class ReportsTableSeeder extends Seeder
      */
     public function run()
     {
-        $reports = factory(App\Report::class,5)->create();
-}
+        $reports = factory(App\Report::class,5)->create()->each(function ($report){
+            factory(WorkItem::class, 3)->create(['report_id'=>$report->id]);
+        });
+    }
 }

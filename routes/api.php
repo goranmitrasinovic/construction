@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/reports', 'ReportController@index');
 Route::post('/report', 'ReportController@store');
+Route::put('/report/work-item', 'WorkItemController@store');
+Route::delete('/report/work-item/{id}', 'WorkItemController@delete');

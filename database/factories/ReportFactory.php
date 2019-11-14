@@ -17,6 +17,8 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Report::class, function (Faker $faker) {
+    $workItems = App\WorkItem::pluck('id')->toArray();
+
     return [
         'report_type' => $faker->name,
         'location' => $faker->city,

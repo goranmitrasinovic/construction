@@ -1,10 +1,10 @@
 <template>
   <section>
-    <b-modal :active.sync="isModalActive" :can-cancel="false" :width="640" scroll="keep">
+    <b-modal :active.sync="isModalActive" :can-cancel="true" :width="640" scroll="keep">
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">
-          <gm-create-report></gm-create-report>
+          <slot></slot>
         </div>
       </div>
     </b-modal>
@@ -12,14 +12,9 @@
 </template>
 
 <script>
-import gmCreateReport from "../components/gmCreateReport";
 export default {
   data() {
     return {};
-  },
-
-  components: {
-    gmCreateReport
   },
 
   methods: {

@@ -9,11 +9,16 @@ use App\Report;
 class ReportController extends Controller
 {
     public function index() {
-        $reports = Report::all();
+        $reports = Report::with('workItems')->get();
         return $reports;
     }
 
     public function store(Request $request) {
         $report = Report::Create($request->all());
+    }
+
+    public function update(Request $request) {
+        dd($request);
+        $report = Report::updateOrCreate($request->all());
     }
 }

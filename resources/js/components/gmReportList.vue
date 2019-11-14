@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button type="is-primary" @click="isModalActive = !isModalActive">Create report</b-button>
-    <div class="card" v-for="report in reports" style="margin: 20px 0px;" :key="report.id">
+    <div class="card" v-for="report in reports" style="margin: 10px 0px 50px 0px" :key="report.id">
       <header class="card-header">
         <p class="card-header-title">Rapport-id: {{report.id}}</p>
       </header>
@@ -13,9 +13,6 @@
             </b-field>
             <b-field label="Reported by">
               <b-input v-model="report.reported_by"></b-input>
-            </b-field>
-            <b-field label="Report Type">
-              <b-input v-model="report.report_type"></b-input>
             </b-field>
           </div>
           <div class="column">
@@ -30,26 +27,49 @@
             <b-field label="Location">
               <b-input v-model="report.location"></b-input>
             </b-field>
-            <b-field label="Description">
-              <b-input v-model="report.description"></b-input>
+            <b-field label="Report Type">
+              <b-input v-model="report.report_type"></b-input>
             </b-field>
-            <b-button type="is-primary" @click="createPdf(report)">Generate PDF</b-button>
           </div>
         </div>
+        <b-field label="Description">
+          <b-input type="textarea" v-model="report.description"></b-input>
+        </b-field>
+        <hr />
+        <div>
+          <b-field label="Work items"></b-field>
+          <gm-work-item-list :report="report"></gm-work-item-list>
+        </div>
       </div>
+      <footer class="card-footer">
+        <div>
+          <b-button type="is-primary" inverted @click="createPdf(report)">Generate PDF</b-button>
+          <b-button
+            type="is-primary"
+            inverted
+            @click="isCreateWorkItemModalActive = !isCreateWorkItemModalActive"
+          >Create Work item</b-button>
+        </div>
+      </footer>
     </div>
-    <gm-modal :isModalActive="isModalActive"></gm-modal>
+    <gm-modal :isModalActive="isModalActive">
+      <gm-create-report></gm-create-report>
+    </gm-modal>
   </div>
 </template>
 
 <script>
 import gmModal from "../base_components/gmModal";
+import gmWorkItemList from "../components/gmWorkItemList";
+import gmCreateReport from "../components/gmCreateReport";
+import gmCreateWorkItem from "../components/gmCreateWorkItem";
 
 export default {
   data() {
     return {
       reports: [],
-      isModalActive: false
+      isModalActive: false,
+      isCreateWorkItemModalActive: false
     };
   },
 
@@ -58,7 +78,10 @@ export default {
   },
 
   components: {
-    gmModal
+    gmModal,
+    gmWorkItemList,
+    gmCreateReport,
+    gmCreateWorkItem
   },
 
   methods: {
@@ -92,6 +115,20 @@ export default {
 
 <style scoped>
 .card {
-  background: #deedf3;
+  background: #f8faff;
+  border: 2px solid #576fd5;
+}
+
+.card-header {
+  background: #576fd5;
+}
+
+.card-header-title {
+  color: white;
+}
+
+.card-footer {
+  background: #9687bf;
+  padding: 10px;
 }
 </style>
