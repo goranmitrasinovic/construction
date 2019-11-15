@@ -5,10 +5,41 @@
         <div class="column">
           <b-field label="Name">
             <b-select placeholder="Select a name" v-model="workItem.name" required>
-              <option>Installation</option>
-              <option>Npgot annat</option>
-              <option>Rörläggning</option>
-              <option>VVS</option>
+              <option>Constructor (h)</option>
+              <option>Superviso (h)</option>
+              <option>Asphalt - 1 layer (sqm)</option>
+              <option>Asphalt - 2 layers (sqm)</option>
+              <option>Restoring gravel (sqm)</option>
+              <option>Restoring earth (sqm)</option>
+              <option>Drilling (m)</option>
+              <option>Wells</option>
+              <option>Pulling through current line (m)</option>
+              <option>FOS</option>
+              <option>Milling of asphalt (sqm)</option>
+              <option>Pits</option>
+              <option>Installations</option>
+              <option>Truck driver (h)</option>
+              <option>Machinist (tim)</option>
+              <option>Meter</option>
+              <option>NOD</option>
+              <option>Projections</option>
+              <option>Excavation in landscaped grass area (m)</option>
+              <option>Excavation on walking/bicycle lane asphalt (m)</option>
+              <option>Excavation on walking/bicycle lane tiles (m)</option>
+              <option>Excavation in gravel (m)</option>
+              <option>Excavation in asphalt roadway - a crossing (m)</option>
+              <option>Excavation in asphalt roadway - longitudinal (m)</option>
+              <option>Excavation in ground asphalt roadway joint property (m)</option>
+              <option>Excavation of soft ground (m)</option>
+              <option>Excavation in current line (m)</option>
+              <option>Excavation digging on private plot (m)</option>
+              <option>Excavation obstacle - a crossing line (st)</option>
+              <option>Stones> 0.2 cubic</option>
+              <option>Stone field (m)</option>
+              <option>Piece</option>
+              <option>Technician (h)</option>
+              <option>Plot digging (st)</option>
+              <option>Replacement of lots (m)</option>
             </b-select>
           </b-field>
         </div>
@@ -40,6 +71,7 @@ export default {
       workItem: { report_id: this.report.id }
     };
   },
+
   methods: {
     createWorkItem(workItem) {
       axios
@@ -47,6 +79,11 @@ export default {
         .then(response => {})
         .catch(error => {})
         .then(function() {});
+      this.getReports();
+    },
+
+    getReports() {
+      this.$store.dispatch("getReportList");
     }
   },
 

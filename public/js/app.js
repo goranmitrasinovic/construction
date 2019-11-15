@@ -1946,11 +1946,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createReport: function createReport(report) {
-      var _this = this;
-
-      axios.post("api/report", report).then(function (response) {
-        _this.reports = response.data;
-      })["catch"](function (error) {}).then(function () {});
+      axios.post("api/report", report).then(function (response) {})["catch"](function (error) {}).then(function () {});
+      this.getReports();
+    },
+    getReports: function getReports() {
+      this.$store.dispatch("getReportList");
     }
   }
 });
@@ -2001,6 +2001,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2012,6 +2043,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createWorkItem: function createWorkItem(workItem) {
       axios.put("api/report/work-item", workItem).then(function (response) {})["catch"](function (error) {}).then(function () {});
+      this.getReports();
+    },
+    getReports: function getReports() {
+      this.$store.dispatch("getReportList");
     }
   },
   props: ["report"]
@@ -2028,10 +2063,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _base_components_gmModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../base_components/gmModal */ "./resources/js/base_components/gmModal.vue");
-/* harmony import */ var _components_gmWorkItemList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/gmWorkItemList */ "./resources/js/components/gmWorkItemList.vue");
-/* harmony import */ var _components_gmCreateReport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/gmCreateReport */ "./resources/js/components/gmCreateReport.vue");
-/* harmony import */ var _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/gmCreateWorkItem */ "./resources/js/components/gmCreateWorkItem.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _base_components_gmModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../base_components/gmModal */ "./resources/js/base_components/gmModal.vue");
+/* harmony import */ var _components_gmWorkItemList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/gmWorkItemList */ "./resources/js/components/gmWorkItemList.vue");
+/* harmony import */ var _components_gmCreateReport__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/gmCreateReport */ "./resources/js/components/gmCreateReport.vue");
+/* harmony import */ var _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/gmCreateWorkItem */ "./resources/js/components/gmCreateWorkItem.vue");
 //
 //
 //
@@ -2092,6 +2128,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2099,19 +2136,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      reports: [],
       isModalActive: false,
       isCreateWorkItemModalActive: false
     };
   },
   mounted: function mounted() {
-    this.getReports();
+    this.getReportList();
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["reports"]),
   components: {
-    gmModal: _base_components_gmModal__WEBPACK_IMPORTED_MODULE_0__["default"],
-    gmWorkItemList: _components_gmWorkItemList__WEBPACK_IMPORTED_MODULE_1__["default"],
-    gmCreateReport: _components_gmCreateReport__WEBPACK_IMPORTED_MODULE_2__["default"],
-    gmCreateWorkItem: _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_3__["default"]
+    gmModal: _base_components_gmModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    gmWorkItemList: _components_gmWorkItemList__WEBPACK_IMPORTED_MODULE_2__["default"],
+    gmCreateReport: _components_gmCreateReport__WEBPACK_IMPORTED_MODULE_3__["default"],
+    gmCreateWorkItem: _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   methods: {
     createPdf: function createPdf(report) {
@@ -2125,14 +2162,8 @@ __webpack_require__.r(__webpack_exports__);
       doc.text("Beskrivning: " + report.description, 10, 70);
       doc.save();
     },
-    getReports: function getReports() {
-      var _this = this;
-
-      axios.get("api/reports").then(function (response) {
-        _this.reports = response.data;
-      })["catch"](function (error) {
-        alert("nope");
-      }).then(function () {});
+    getReportList: function getReportList() {
+      this.$store.dispatch("getReportList");
     }
   }
 });
@@ -2148,8 +2179,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _base_components_gmModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../base_components/gmModal */ "./resources/js/base_components/gmModal.vue");
-/* harmony import */ var _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/gmCreateWorkItem */ "./resources/js/components/gmCreateWorkItem.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _base_components_gmModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../base_components/gmModal */ "./resources/js/base_components/gmModal.vue");
+/* harmony import */ var _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/gmCreateWorkItem */ "./resources/js/components/gmCreateWorkItem.vue");
 //
 //
 //
@@ -2172,6 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2181,15 +2214,20 @@ __webpack_require__.r(__webpack_exports__);
       workItem: {}
     };
   },
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["reports"]),
   methods: {
     removeWorkItem: function removeWorkItem(workItem) {
       axios["delete"]("api/report/work-item/" + workItem.id).then(function (response) {})["catch"](function (error) {}).then(function () {});
+      this.getReports();
+    },
+    getReports: function getReports() {
+      this.$store.dispatch("getReportList");
     }
   },
   props: ["report"],
   components: {
-    gmModal: _base_components_gmModal__WEBPACK_IMPORTED_MODULE_0__["default"],
-    gmCreateWorkItem: _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_1__["default"]
+    gmModal: _base_components_gmModal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    gmCreateWorkItem: _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -33935,7 +33973,7 @@ var render = function() {
           attrs: {
             active: _vm.isModalActive,
             "can-cancel": true,
-            width: 640,
+            width: 1240,
             scroll: "keep"
           },
           on: {
@@ -34179,13 +34217,97 @@ var render = function() {
                       }
                     },
                     [
-                      _c("option", [_vm._v("Installation")]),
+                      _c("option", [_vm._v("Constructor (h)")]),
                       _vm._v(" "),
-                      _c("option", [_vm._v("Npgot annat")]),
+                      _c("option", [_vm._v("Superviso (h)")]),
                       _vm._v(" "),
-                      _c("option", [_vm._v("Rörläggning")]),
+                      _c("option", [_vm._v("Asphalt - 1 layer (sqm)")]),
                       _vm._v(" "),
-                      _c("option", [_vm._v("VVS")])
+                      _c("option", [_vm._v("Asphalt - 2 layers (sqm)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Restoring gravel (sqm)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Restoring earth (sqm)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Drilling (m)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Wells")]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Pulling through current line (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("FOS")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Milling of asphalt (sqm)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Pits")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Installations")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Truck driver (h)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Machinist (tim)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Meter")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("NOD")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Projections")]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation in landscaped grass area (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation on walking/bicycle lane asphalt (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation on walking/bicycle lane tiles (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Excavation in gravel (m)")]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation in asphalt roadway - a crossing (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v(
+                          "Excavation in asphalt roadway - longitudinal (m)"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v(
+                          "Excavation in ground asphalt roadway joint property (m)"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Excavation of soft ground (m)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Excavation in current line (m)")]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation digging on private plot (m)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [
+                        _vm._v("Excavation obstacle - a crossing line (st)")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Stones> 0.2 cubic")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Stone field (m)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Piece")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Technician (h)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Plot digging (st)")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("Replacement of lots (m)")])
                     ]
                   )
                 ],
@@ -50813,7 +50935,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(buefy__WEBPACK_IMPORTED_MODULE_2_
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
-  store: _store_store__WEBPACK_IMPORTED_MODULE_7__["default"],
+  store: _store_store__WEBPACK_IMPORTED_MODULE_7__["store"],
   router: _js_routes_js__WEBPACK_IMPORTED_MODULE_8__["default"],
   render: function render(h) {
     return h(_js_views_App__WEBPACK_IMPORTED_MODULE_9__["default"]);
@@ -51338,23 +51460,41 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*!*************************************!*\
   !*** ./resources/js/store/store.js ***!
   \*************************************/
-/*! exports provided: default */
+/*! exports provided: store */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var state = {
-  count: 0
-};
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: state
-}));
+var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    reports: []
+  },
+  actions: {
+    getReportList: function getReportList(_ref) {
+      var commit = _ref.commit;
+      axios.get("api/reports").then(function (response) {
+        return response.data;
+      }).then(function (reports) {
+        commit('GET_REPORTS', reports);
+      })["catch"](function (error) {
+        alert("nope");
+      });
+    }
+  },
+  mutations: {
+    GET_REPORTS: function GET_REPORTS(state, reports) {
+      state.reports.push(reports);
+      state.reports = reports;
+    }
+  }
+});
 
 /***/ }),
 

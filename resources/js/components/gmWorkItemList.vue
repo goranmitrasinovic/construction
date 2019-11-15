@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import gmModal from "../base_components/gmModal";
 import gmCreateWorkItem from "../components/gmCreateWorkItem";
 
@@ -32,6 +34,8 @@ export default {
     };
   },
 
+  computed: mapState(["reports"]),
+
   methods: {
     removeWorkItem(workItem) {
       axios
@@ -39,6 +43,10 @@ export default {
         .then(response => {})
         .catch(error => {})
         .then(function() {});
+      this.getReports();
+    },
+    getReports() {
+      this.$store.dispatch("getReportList");
     }
   },
 

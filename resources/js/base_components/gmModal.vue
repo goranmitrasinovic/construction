@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-modal :active.sync="isModalActive" :can-cancel="true" :width="640" scroll="keep">
+    <b-modal :active.sync="isModalActive" :can-cancel="true" :width="1240" scroll="keep">
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">

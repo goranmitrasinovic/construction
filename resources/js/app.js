@@ -5,7 +5,8 @@ import 'buefy/dist/buefy.css';
 import axios from 'axios';
 import Vuex from 'vuex';
 import jsPDF from 'jspdf';
-import store from './store/store';
+import { store } from './store/store'
+
 
 
 import Routes from '@/js/routes.js';

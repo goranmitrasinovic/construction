@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 import gmModal from "../base_components/gmModal";
 import gmWorkItemList from "../components/gmWorkItemList";
 import gmCreateReport from "../components/gmCreateReport";
@@ -67,15 +69,16 @@ import gmCreateWorkItem from "../components/gmCreateWorkItem";
 export default {
   data() {
     return {
-      reports: [],
       isModalActive: false,
       isCreateWorkItemModalActive: false
     };
   },
 
   mounted() {
-    this.getReports();
+    this.getReportList();
   },
+
+  computed: mapState(["reports"]),
 
   components: {
     gmModal,
@@ -98,16 +101,8 @@ export default {
       doc.save();
     },
 
-    getReports() {
-      axios
-        .get("api/reports")
-        .then(response => {
-          this.reports = response.data;
-        })
-        .catch(error => {
-          alert("nope");
-        })
-        .then(function() {});
+    getReportList() {
+      this.$store.dispatch("getReportList");
     }
   }
 };

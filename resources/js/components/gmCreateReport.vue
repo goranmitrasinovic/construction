@@ -45,11 +45,13 @@ export default {
     createReport(report) {
       axios
         .post("api/report", report)
-        .then(response => {
-          this.reports = response.data;
-        })
+        .then(response => {})
         .catch(error => {})
         .then(function() {});
+      this.getReports();
+    },
+    getReports() {
+      this.$store.dispatch("getReportList");
     }
   }
 };
