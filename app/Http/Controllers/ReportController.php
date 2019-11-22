@@ -9,7 +9,7 @@ use App\Report;
 class ReportController extends Controller
 {
     public function index() {
-        $reports = Report::with('workItems')->get();
+        $reports = Report::with(['workItems', 'checkList', 'checkList.checkListItems'])->get();
         return $reports;
     }
 
@@ -18,7 +18,6 @@ class ReportController extends Controller
     }
 
     public function update(Request $request) {
-        dd($request);
         $report = Report::updateOrCreate($request->all());
     }
 }

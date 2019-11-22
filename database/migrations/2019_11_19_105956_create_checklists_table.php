@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateChecklistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('checklists', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('report_id')->unsigned();
             $table->string('name');
-            $table->string('report_type');
-            $table->string('location');
-            $table->text('description');
-            $table->date('start_date');
-            $table->date('end_date');
             $table->timestamps();
+            $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');
+
         });
     }
 
@@ -32,6 +30,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('checklists');
     }
 }

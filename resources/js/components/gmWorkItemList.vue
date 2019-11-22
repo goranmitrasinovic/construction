@@ -14,16 +14,15 @@
 
     <b-button @click="isModalActive = !isModalActive" type="is-primary">Add Work item</b-button>
 
-    <gm-modal :isModalActive="isModalActive">
+    <b-modal :active.sync="isModalActive" has-modal-card>
       <gm-create-work-item :report="report"></gm-create-work-item>
-    </gm-modal>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
-import gmModal from "../base_components/gmModal";
 import gmCreateWorkItem from "../components/gmCreateWorkItem";
 
 export default {
@@ -40,10 +39,18 @@ export default {
     removeWorkItem(workItem) {
       axios
         .delete("api/report/work-item/" + workItem.id)
-        .then(response => {})
+        .then(response => {
+          this.successMessage();
+        })
         .catch(error => {})
         .then(function() {});
       this.getReports();
+    },
+    successMessage() {
+      this.$buefy.notification.open({
+        message: "Work item removed!",
+        type: "is-success"
+      });
     },
     getReports() {
       this.$store.dispatch("getReportList");
@@ -53,7 +60,6 @@ export default {
   props: ["report"],
 
   components: {
-    gmModal,
     gmCreateWorkItem
   }
 };
@@ -69,9 +75,10 @@ export default {
 
 .table thead {
   background: #758be8;
+  color: white;
 }
 
-.table thead th {
+.th-wrap {
   color: white;
 }
 </style>

@@ -10,6 +10,7 @@ class WorkItem extends Model
     protected $fillable = [
         'report_id', 'name', 'quantity', 'quantity_type'
     ];
+    
     /**
      * Get the report that owns the work item.
      */

@@ -1,67 +1,78 @@
 <template>
   <div>
-    <b-button type="is-primary" @click="isModalActive = !isModalActive">Create report</b-button>
-    <div class="card" v-for="report in reports" style="margin: 10px 0px 50px 0px" :key="report.id">
-      <header class="card-header">
-        <p class="card-header-title">Rapport-id: {{report.id}}</p>
-      </header>
-      <div class="card-content">
-        <div class="columns">
-          <div class="column">
-            <b-field label="Date">
-              <b-input v-model="report.date"></b-input>
-            </b-field>
-            <b-field label="Reported by">
-              <b-input v-model="report.reported_by"></b-input>
-            </b-field>
+    <b-button type="is-primary" @click="isModalActive = true">Create report</b-button>
+    <template>
+      <section>
+        <b-collapse
+          class="card"
+          aria-id="contentIdForA11y3"
+          :open="false"
+          v-for="report in reports"
+          style="margin: 20px 0px"
+          :key="report.id"
+        >
+          <div
+            slot="trigger"
+            slot-scope="props"
+            class="card-header"
+            role="button"
+            aria-controls="contentIdForA11y3"
+          >
+            <div class="card-header-title">
+              <span class="big-title">{{report.id}} - {{report.name}}</span>
+              <span>Date: {{report.date}}</span>
+              <span class="sm-title">Reported by: {{report.reported_by}}</span>
+              <span class="sm-title">{{report.start_date}} - {{report.end_date}}</span>
+              <span class="sm-title">{{report.report_type}}</span>
+              <span class="sm-title">{{report.location}}</span>
+            </div>
+
+            <a class="card-header-icon">
+              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
+            </a>
           </div>
-          <div class="column">
-            <b-field label="Start Date">
-              <b-input v-model="report.start_date"></b-input>
-            </b-field>
-            <b-field label="End Date">
-              <b-input v-model="report.end_date"></b-input>
-            </b-field>
+          <div class="card-content">
+            <div class="content">
+              <div class="card-content">
+                <b-field label="Description">
+                  <b-input type="textarea" v-model="report.description"></b-input>
+                </b-field>
+                <hr />
+                <div>
+                  <b-field label="Work items"></b-field>
+                  <gm-work-item-list :report="report"></gm-work-item-list>
+                </div>
+                <hr />
+                <b-field label="Checklist"></b-field>
+
+                <div v-for="item in report.check_list.check_list_items" :key="item.id">
+                  <section>
+                    <div class="field">
+                      <b-checkbox v-model="item.checked">{{item.name}}</b-checkbox>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <div>
+                  <b-button type="is-primary" inverted @click="createPdf(report)">Generate PDF</b-button>
+                </div>
+              </footer>
+            </div>
           </div>
-          <div class="column">
-            <b-field label="Location">
-              <b-input v-model="report.location"></b-input>
-            </b-field>
-            <b-field label="Report Type">
-              <b-input v-model="report.report_type"></b-input>
-            </b-field>
-          </div>
-        </div>
-        <b-field label="Description">
-          <b-input type="textarea" v-model="report.description"></b-input>
-        </b-field>
-        <hr />
-        <div>
-          <b-field label="Work items"></b-field>
-          <gm-work-item-list :report="report"></gm-work-item-list>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <div>
-          <b-button type="is-primary" inverted @click="createPdf(report)">Generate PDF</b-button>
-          <b-button
-            type="is-primary"
-            inverted
-            @click="isCreateWorkItemModalActive = !isCreateWorkItemModalActive"
-          >Create Work item</b-button>
-        </div>
-      </footer>
-    </div>
-    <gm-modal :isModalActive="isModalActive">
+        </b-collapse>
+      </section>
+    </template>
+
+    <b-modal :active.sync="isModalActive" has-modal-card>
       <gm-create-report></gm-create-report>
-    </gm-modal>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 
-import gmModal from "../base_components/gmModal";
 import gmWorkItemList from "../components/gmWorkItemList";
 import gmCreateReport from "../components/gmCreateReport";
 import gmCreateWorkItem from "../components/gmCreateWorkItem";
@@ -81,7 +92,6 @@ export default {
   computed: mapState(["reports"]),
 
   components: {
-    gmModal,
     gmWorkItemList,
     gmCreateReport,
     gmCreateWorkItem
@@ -91,13 +101,27 @@ export default {
     createPdf(report) {
       let doc = new jsPDF();
 
-      doc.text("Rapportdatum: " + report.date, 10, 10);
-      doc.text("Rapporterad av: " + report.reported_by, 10, 20);
-      doc.text("Rapporttyp: " + report.report_type, 10, 30);
-      doc.text("Startdatum: " + report.start_date, 10, 40);
-      doc.text("Slutdatum: " + report.end_date, 10, 50);
-      doc.text("Plats: " + report.location, 10, 60);
-      doc.text("Beskrivning: " + report.description, 10, 70);
+      var description = doc.splitTextToSize(report.description, 180);
+
+      doc.setFontSize(26);
+      doc.text(10, 15, "Dagrapport");
+
+      doc.setFontSize(16);
+      doc.setFillColor(102, 102, 102);
+      doc.rect(0, 24, 220, 8, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.text("Projekt/Arbetsorder", 105, 30, null, null, "center");
+
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      doc.text("Rapportdatum: " + report.date, 10, 40);
+      doc.text("Rapporterad av: " + report.reported_by, 100, 40);
+      doc.text("Rapporttyp: " + report.report_type, 10, 50);
+      doc.text("Startdatum: " + report.start_date, 100, 50);
+      doc.text("Slutdatum: " + report.end_date, 10, 60);
+      doc.text("Plats: " + report.location, 100, 60);
+      doc.text(10, 80, description);
+
       doc.save();
     },
 
@@ -118,12 +142,27 @@ export default {
   background: #576fd5;
 }
 
+.card-header-title > span {
+  width: 50%;
+}
+
 .card-header-title {
   color: white;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 20px;
 }
 
 .card-footer {
   background: #9687bf;
   padding: 10px;
+}
+
+.card-header-title > .sm-title {
+  font-size: 12px;
+}
+
+.card-header-title > .bg-title {
+  font-size: 30px;
 }
 </style>

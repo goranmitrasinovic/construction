@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Report;
+use App\CheckList;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -16,15 +16,10 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Report::class, function (Faker $faker) {
-    $workItems = App\WorkItem::pluck('id')->toArray();
+$factory->define(CheckList::class, function (Faker $faker) {
+    $checkListItems = App\CheckListItem::pluck('id')->toArray();
 
     return [
         'name' => $faker->name,
-        'report_type' => $faker->name,
-        'location' => $faker->city,
-        'description' => $faker->realText,
-        'start_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
-        'end_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
     ];
 });

@@ -26,8 +26,7 @@ export const store = new Vuex.Store({
 
 	mutations: {
 		GET_REPORTS(state, reports) {
-			state.reports.push(reports)
-			state.reports = reports;
+			Vue.set(state, 'reports', [...reports])
 		},
 	}
 })
