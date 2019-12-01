@@ -15,10 +15,9 @@ class CreateChecklistsTable extends Migration
     {
         Schema::create('checklists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('report_id')->unsigned();
             $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');
 
         });
     }

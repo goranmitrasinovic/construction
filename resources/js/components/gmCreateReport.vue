@@ -31,9 +31,17 @@
           <b-field label="Description">
             <b-input v-model="report.description"></b-input>
           </b-field>
+          <section>
+            <div class="block">
+              <b-field label="Report">
+                <b-checkbox v-model="report.check_list" native-value="1">Excavation</b-checkbox>
+                <b-checkbox v-model="report.check_list" native-value="2">Added Work</b-checkbox>
+              </b-field>
+            </div>
+          </section>
         </div>
-        <b-button type="is-primary" @click="createReport(report)">Create report</b-button>
       </div>
+      <b-button type="is-primary" @click="createReport(report)">Create report</b-button>
     </div>
   </div>
 </template>
@@ -42,7 +50,15 @@
 export default {
   data() {
     return {
-      report: {}
+      report: {
+        name: "Name of report",
+        report_type: "Type of report",
+        start_date: "2018-01-01",
+        end_date: "2019-01-01",
+        location: "Location",
+        description: "Description",
+        check_list: []
+      }
     };
   },
 

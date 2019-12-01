@@ -44,13 +44,17 @@
                 </div>
                 <hr />
                 <b-field label="Checklist"></b-field>
-
-                <div v-for="item in report.check_list.check_list_items" :key="item.id">
-                  <section>
-                    <div class="field">
-                      <b-checkbox v-model="item.checked">{{item.name}}</b-checkbox>
-                    </div>
-                  </section>
+                <div v-if="report.check_list.length > 0">
+                  <div v-for="check_list in report.check_list">
+                    {{check_list.name}}
+                    <!-- <div v-for="item in report.check_list[0].check_list_items" :key="item.id">
+                      <section>
+                        <div class="field">
+                          <b-checkbox v-model="item.checked">{{item.name}}</b-checkbox>
+                        </div>
+                      </section>
+                    </div>-->
+                  </div>
                 </div>
               </div>
               <footer class="card-footer">

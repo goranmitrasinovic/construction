@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ChecklistItem extends Model
 {
     protected $fillable = [
-        'checklist_id', 'name'
+       'checked', 'checklist_id', 'name'
+    ];
+
+    protected $casts = [
+        'checked' => 'boolean',
     ];
 
     public function checkList()

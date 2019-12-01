@@ -1907,10 +1907,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      report: {}
+      report: {
+        name: "Name of report",
+        report_type: "Type of report",
+        start_date: "2018-01-01",
+        end_date: "2019-01-01",
+        location: "Location",
+        description: "Description",
+        check_list: []
+      }
     };
   },
   methods: {
@@ -2082,6 +2098,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_gmWorkItemList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/gmWorkItemList */ "./resources/js/components/gmWorkItemList.vue");
 /* harmony import */ var _components_gmCreateReport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/gmCreateReport */ "./resources/js/components/gmCreateReport.vue");
 /* harmony import */ var _components_gmCreateWorkItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/gmCreateWorkItem */ "./resources/js/components/gmCreateWorkItem.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -34079,11 +34099,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-content" }, [
-      _c(
-        "div",
-        { staticClass: "columns" },
-        [
+    _c(
+      "div",
+      { staticClass: "card-content" },
+      [
+        _c("div", { staticClass: "columns" }, [
           _c(
             "div",
             { staticClass: "column" },
@@ -34202,27 +34222,73 @@ var render = function() {
                   })
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("section", [
+                _c(
+                  "div",
+                  { staticClass: "block" },
+                  [
+                    _c(
+                      "b-field",
+                      { attrs: { label: "Report" } },
+                      [
+                        _c(
+                          "b-checkbox",
+                          {
+                            attrs: { "native-value": "1" },
+                            model: {
+                              value: _vm.report.check_list,
+                              callback: function($$v) {
+                                _vm.$set(_vm.report, "check_list", $$v)
+                              },
+                              expression: "report.check_list"
+                            }
+                          },
+                          [_vm._v("Excavation")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-checkbox",
+                          {
+                            attrs: { "native-value": "2" },
+                            model: {
+                              value: _vm.report.check_list,
+                              callback: function($$v) {
+                                _vm.$set(_vm.report, "check_list", $$v)
+                              },
+                              expression: "report.check_list"
+                            }
+                          },
+                          [_vm._v("Added Work")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              attrs: { type: "is-primary" },
-              on: {
-                click: function($event) {
-                  return _vm.createReport(_vm.report)
-                }
-              }
-            },
-            [_vm._v("Create report")]
           )
-        ],
-        1
-      )
-    ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "b-button",
+          {
+            attrs: { type: "is-primary" },
+            on: {
+              click: function($event) {
+                return _vm.createReport(_vm.report)
+              }
+            }
+          },
+          [_vm._v("Create report")]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -34633,36 +34699,23 @@ var render = function() {
                         _vm._v(" "),
                         _c("b-field", { attrs: { label: "Checklist" } }),
                         _vm._v(" "),
-                        _vm._l(report.check_list.check_list_items, function(
-                          item
-                        ) {
-                          return _c("div", { key: item.id }, [
-                            _c("section", [
-                              _c(
-                                "div",
-                                { staticClass: "field" },
-                                [
-                                  _c(
-                                    "b-checkbox",
-                                    {
-                                      model: {
-                                        value: item.checked,
-                                        callback: function($$v) {
-                                          _vm.$set(item, "checked", $$v)
-                                        },
-                                        expression: "item.checked"
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(item.name))]
+                        report.check_list.length > 0
+                          ? _c(
+                              "div",
+                              _vm._l(report.check_list, function(check_list) {
+                                return _c("div", [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(check_list.name) +
+                                      "\n                  "
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          ])
-                        })
+                                ])
+                              }),
+                              0
+                            )
+                          : _vm._e()
                       ],
-                      2
+                      1
                     ),
                     _vm._v(" "),
                     _c("footer", { staticClass: "card-footer" }, [

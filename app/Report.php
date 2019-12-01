@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     protected $fillable = [
-        'name', 'report_type', 'location', 'description', 'start_date', 'end_date'
+        'name', 'report_type', 'location', 'description', 'start_date', 'end_date', 'checklist_id'
     ];
 
     public function workItems(){
@@ -15,6 +15,6 @@ class Report extends Model
     }
 
     public function checkList(){
-        return $this->hasOne(CheckList::class);
+        return $this->belongsToMany(CheckList::class);
     }
 }

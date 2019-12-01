@@ -10,5 +10,6 @@ use Illuminate\Support\Str;
 $factory->define(CheckListItem::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'checked' =>$faker->boolean($chanceOfGettingTrue = 50) // true
     ];
 });
